@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="nlp2.png" type="image/gif">	
+	<title>NLP - Use Preprocessing Code for your Projects</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Roboto:wght@100&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+.codeArea{
+	padding:5px;
+	border:1px solid lightgrey;
+	margin-top:50px;
+	border-left:10px solid #545454;
+	background-color: white;
+	white-space: nowrap;
+    overflow: auto;
+    overflow-y: hidden;
+}
+.codeline{
+	margin-left: 10px;
+	padding:10px;
+}
+</style>
+</head>
+<body>
+	<div class="container" style="background-color: #F8F8F8;padding:20px">
+		<h6 style="font-family: 'Roboto', sans-serif;font-weight: bold"> Preprocessing Library in PHP</h6>
+		<div style="margin-top: 5%">
+			<center><img src="NLP/nlp2.png" width="150"></center>
+			<h4 style="text-align: center;margin-top: 10px;">Data cleaning code designed in Php</h4>
+			<p style="text-align: center">Use in project domains such as ML, NLP, AI to clean data</p>
+			<p style="font-size: 40px;color:red;text-align: center;margin-top: 20px"><i class="fa fa-youtube-play" aria-hidden="true"></i> <i class="fa fa-github" style="color:black" aria-hidden="true"></i></p>
+			<center><img src="NLP/composer.png" width=80 height="100"></center>
+		</div>
+
+		<h6 style="margin-left:20px;margin-top: 100px;font-weight:bold"> To use tokenizer download package from <a href="https://getcomposer.org/">Nlp Tools</a> or install using <a href="">
+		Composer </a></h6>
+		<h6 style="margin-left:20px;margin-top: 20px;">Commands to install composer and nlp tools package</h6>
+
+		<div class="codeArea"  style="margin-top: 10px;">			
+			<pre style="margin-top: 10px;margin-left:10px;">$ sudo apt-get install composer</pre>
+			<pre style="margin-top: 10px;margin-left: 10px;">$ composer require nlp-tools/nlp-tools  <span style="color:grey">// installing nlp tools in project folder</span></pre>
+		</div>
+
+		<h6 style="margin-left:20px;margin-top: 20px;">importing NLPTools in Our Program</a></h6>
+		<div class="codeArea"  style="margin-top: 10px;">			
+			<pre style="margin-top: 10px;margin-left:10px;">use NlpTools\Tokenizers\<span style="color:#11A47A">WhitespaceAndPunctuationTokenizer; </span> <span style="color:grey">// for using another tokenizer just replace with greentext</span></pre>
+			<pre style="margin-top: 10px;margin-left: 10px;">include('vendor/autoload.php');</pre>
+		</div>
+
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Code to handle pre-processing</h6>
+
+		<div class="codeArea" style="margin-top: 20px;">			
+			<code class='codeline'>$replaced_emoji = $this -> emoji_replacer($review); <span style="margin-left:10px;color:grey">  //Emoji Replacer</span></code><br>
+			<code class='codeline'>$lower = strtolower($replaced_emoji); <span style="margin-left:10px;color:grey">  // Data Lowering</span></code><br>
+			<code class='codeline'>$stripped = trim(preg_replace('/\s+/', ' ', $lower)); <span style="margin-left:10px;color:grey">  //  Space Stripping</span></code><br>
+			<code class='codeline'>$contraction_result = $this -> contraction_remover($stripped);<span style="margin-left:10px;color:grey">  // Contraction Handler</span></code><br>
+			<code class='codeline'>$polarity_result = $this -> polarity_replacer($contraction_result);<span style="margin-left:10px;color:grey">  //  Polarity Checker</span></code><br>
+			<code class='codeline'>$punctuation_removed = preg_replace('/[^a-z]+/i', ' ', $polarity_result);  <span style="margin-left:10px;color:grey">  // Punctuation Remover</span></code><br>
+			<code class='codeline'>$stop_words_removed = $this -> removeCommonWords($punctuation_removed);<span style="margin-left:10px;color:grey">  //  Stop Words Remover</span></code><br>
+		</div>
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Creating and Applying Object on Natural text </h6>
+
+		<div class="codeArea"  style="margin-top: 20px;">			
+			<code class='codeline'>$tokens = new WhitespaceAndPunctuationTokenizer();<span style="margin-left:10px;color:grey">  // White space and Punctuation Tokenizer</span></code><br>
+			<code class='codeline'>$this -> tok = $tokens -> tokenize($stop_words_removed);<span style="margin-left:10px;color:grey">  // Creating Tokens</span></code><br>
+		</div>
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Function to remove stopwords </h6>
+
+		<div class="codeArea"  style="margin-top: 20px;">			
+			<code class='codeline'> function removeCommonWords($punctuation_removed){ </code><br>				 
+			<code class='codeline'>$commonWords = array('i', 'b', 'c' , 'd', 'e', 'f' ,'g','h','j','k','l','m','n','o','p','q','r','u','v','w','x','y','z',     "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these", "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do", "does", "did", "doing", "a", "an", "the", "and", "if", "or", "because", "as", "until", "while", "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before", "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each", "few", "more", "most", "other", "some", "such","only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will", "just","should","now"); </code><br>
+			<code class='codeline'>return preg_replace('/\b('.implode('|',$commonWords).')\b/','',$punctuation_removed);</code><br>
+			<code class='codeline'>}</code><br>
+		</div>
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Function to handle Contraction </h6>
+
+		<div class="codeArea"  style="margin-top: 20px;">			
+			<code class='codeline'>	 function contraction_remover($stripped){ </code><br>				 
+			<code class='codeline'>		$contraction_words = array("wouldn't"=> "would not","ain't"=> "am not","aren't"=> "are not","can't"=> "cannot","'cause"=> "because","could've"=> "could have","couldn't"=> "could not", "didn't"=> "did not","doesn't"=> "does not","don't"=> "do not","hadn't"=> "had not","hasn't"=> "has not","haven't"=> "have not","he'd"=> "he would","he'll"=> "he will","he's"=> "he is","how'd"=> "how did","how'll"=> "how will","how's"=> "how is", "I'd"=> "I would","I'll"=> "I will","I'm"=> "I am","I've"=> "I have","isn't"=> "is not","it'd"=> "it had","it'll"=> "it will","it's"=> "it is","let's"=> "let us","ma'am"=> "madam","mayn't"=> "may not","might've"=> "might have","mightn't"=> "might not","must've"=> "must have","mustn't"=> "must not","needn't"=> "need not", "shan't"=> "shall not","she'd"=> "she would","she'll"=> "she will","she's"=> "she is","should've"=> "should have","shouldn't"=> "should not","so've"=> "so have","so's"=> "so is","that'd"=> "that would","that's"=> "that is","there'd"=> "there had","there's"=> "there is","they'd"=> "they would","they'll"=> "they will","they're"=> "they are","they've"=> "they have","to've"=> "to have","wasn't"=> "was not","we'd"=> "we had","we'll"=> "we will","we're"=> "we are",
+			"we've"=> "we have","weren't"=> "were not","what'll"=> "what will","what're"=> "what are","what's"=> "what is","what've"=> "what have","when's"=> "when is","when've"=> "when have","where'd"=> "where did","where's"=> "where is","who'll"=> "who will","who's"=> "who is","who've"=> "who have","why's"=> "why is","why've"=> "why have","will've"=> "will have","won't"=> "will not","y'all"=> "you all","you're"=> "you are","you've"=> "you have","you'd"=> "you had","pho"=>"ww");</code><br>
+			<code class='codeline'>$string = str_replace(array_keys($contraction_words), $contraction_words, $stripped);</code><br>
+			<code class='codeline'>return $string;</code><br>
+			<code class='codeline'>}</code><br>
+		</div>
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Function to convert emoji to respective code <span style="font-size: 14px;color:grey"> ( Add <span style="color:black"> &#  </span> before each unicode after copying to editor )</span></h6>
+		<div class="codeArea"  style="margin-top: 20px;">			
+			<code class='codeline'> function emoji_replacer($emoji_review){</code><br>				 
+			<code class='codeline'>$emoji_array = array("128512"=> "happy","128513"=> "very satisfied","128514"=> "enjoy","128515"=> "very happy","128516"=> "very happy and satisfied","128517"=> "happy sweat","128518"=> "SMILING FACE WITH OPEN MOUTH AND TIGHTLY-CLOSED EYES", "128519"=> "SMILING FACE WITH HALO","128520"=> "SMILING FACE WITH HORNS","128521"=> "WINKING FACE","128522"=> "SMILING FACE WITH SMILING EYES","128523"=> "FACE SAVOURING DELICIOUS FOOD","128524"=> "RELIEVED FACE","128525"=> "SMILING FACE WITH HEART-SHAPED EYES","128526"=> "SMILING FACE WITH SUNGLASSES","128527"=> "SMIRKING FACE","128528"=> "NEUTRAL FACE","128529"=> "EXPRESSIONLESS FACE", "128530"=> "UNAMUSED FACE","1285131"=> "FACE WITH COLD SWEAT","128532"=> "PENSIVE FACE","128533"=> "CONFUSED FACE","128534"=> "CONFOUNDED FACE","128535"=> "KISSING FACE","128536"=> "FACE THROWING A KISS","128537"=> "KISSING FACE WITH SMILING EYES","128538"=> "KISSING FACE WITH CLOSED EYES","128539"=> "FACE WITH STUCK-OUT TONGUE","128540"=> "FACE WITH STUCK-OUT TONGUE AND WINKING EYE","128541"=> "FACE WITH STUCK-OUT TONGUE AND TIGHTLY-CLOSED EYES","128542"=> "DISAPPOINTED FACE","128543"=> "WORRIED FACE","128544"=> "ANGRY FACE","128545"=> "POUTING FACE", "128546"=> "CRYING FACE","128547"=> "PERSEVERING FACE");</code><br>	
+			<code class='codeline'>$estring = str_replace(array_keys($emoji_array), $emoji_array, $emoji_review);</code><br>
+			<code class='codeline'>return $estring;</code><br>
+			<code class='codeline'>}</code>
+		</div>
+
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 50px;">Function to handle polarity</h6>
+		<div class="codeArea"  style="margin-top: 20px;">			
+			<code class='codeline'> function polarity_replacer($polarity_review){</code><br>				 
+			<code class='codeline'>	$parray = array("not good" => "bad","not very good" => "very bad","not bad" => "good","not very bad" => "very good","not nice" => "bad","not very happy" =>" very sad","not best" => "worst","not worst" => "good","not happy" => "sad","not sad" => "happy","not be disappointed" => "happy","not disappointed" => "happy","not tasty" => "bad","not very tasty" =>"bad","not impressed" => "bad","not impressed" => "tasteless","not able" => "weak");</code><br>	
+			<code class='codeline'>$estring = str_replace(array_keys($parray), $parray, $polarity_review);</code><br>
+			<code class='codeline'>return $estring;</code><br>
+			<code class='codeline'>}</code>
+		</div>
+
+		<h6 style="color:grey;margin-left:20px;font-weight:bold;margin-top: 50px;text-align: center">Made By <a href="https://www.facebook.com/rakshit.karande.5"> Rakshit </a></h6>
+		<center><p style="font-weight: bold;color:grey">Thanks to <a href="https://www.facebook.com/shobhit.bhosure.7">Shobhit </a> for <a href="https://clipco.de/index.php">Clipco.de </a> design inspiration. <br> Also thanks to <a href="http://php-nlp-tools.com/">NLPTools </a> and <a href="http://naderman.de/">Nils Adermann, </a> <a href="http://nelm.io/jordi">Jordi Boggiano</a> developer's of Composer.</p></center>
+
+		<!-- <h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Tokenization</h6>
+		<center><img src="tokenization.png" width="100%"></center>
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Emoji Convert</h6>
+		<center><img src="emoji.png" width="100%"></center>
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Data Lowering</h6>
+		<center><img src="lowering.png" width="100%"></center>
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Data Stripping</h6>
+		<center><img src="stripping.png" width="100%"></center>
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Contraction Handler</h6>
+		<center><img src="contraction.png" width="100%"></center>
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Polarity Checker</h6>
+		<center><img src="polarity.png" width="100%"></center>	
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Punctuation Remover</h6>
+		<center><img src="punc.png" width="100%"></center>	
+		<h6 style="margin-left:20px;font-weight:bold;margin-top: 10px;">Stopwords </h6>
+		<center><img src="stopwords.png" width="80%"></center>	-->
+	</div>
+		
+</body>
+</html>
